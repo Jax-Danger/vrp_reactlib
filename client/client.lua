@@ -18,6 +18,9 @@ local active = false
 function ReactLib:__construct()
   vRP.Extension.__construct(self)
 
+  if not lib.checkDependency('vrp_reactlib', cfg.currentversion) then error() end
+
+
   local openui = lib.addKeybind({
     name = 'openui',
     description = 'Opens the UI',
