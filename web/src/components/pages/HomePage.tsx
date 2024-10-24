@@ -9,15 +9,7 @@ const HomePage: React.FC = () => {
 	const [startingMoney, setStartingMoney] = useState<number>(1000);
 	const [pvp, setPvp] = useState<string>("disabled");
 
-	/*This fetches the server info from the server when the page is loaded.
-		This happens only once due to the useEffect hook.	*/
-	useEffect(() => {
-		fetchNui("getServerInfo").then((data: any) => {
-			setServerName(data.serverName);
-			setStartingMoney(data.StartingMoney);
-			setPvp(data.EnablePvP);
-		});
-	}, []);
+
 
 	return (
 		<>

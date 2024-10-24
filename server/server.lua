@@ -1,20 +1,15 @@
-local Jax = class("Jax", vRP.Extension)
-Jax.tunnel = {}
+local lang = vRP.lang
+local Luang = module("vrp", "lib/Luang")
 
-function Jax:__construct()
+local ReactLib = class("ReactLib", vRP.Extension)
+ReactLib.event = {}
+ReactLib.tunnel = {}
+
+function ReactLib:__construct()
   vRP.Extension.__construct(self)
-  print("started.")
+
+  -- load config
+  self.cfg = module("vrp_reactlib", "cfg/cfg")
 end
 
-function Jax:name(self)
-  local user = vRP.users_by_source[source]
-  if user then
-    local name = user.cdata
-    print("user", table.unpack(name))
-    return name
-  else
-    vRP.EXT.Base.remote._notify(source, "something is very wrong here.")
-  end
-end
-Jax.tunnel.name = Jax.name
-vRP:registerExtension(Jax)
+vRP:registerExtension(ReactLib)

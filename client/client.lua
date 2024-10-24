@@ -1,15 +1,57 @@
-local Jax = class("Jax", vRP.Extension)
-Jax.tunnel = {}
+--##########	VRP Main	##########--
+-- init vRP server context
+Tunnel = module("vrp", "lib/Tunnel")
+Proxy = module("vrp", "lib/Proxy")
+local cvRP = module("vrp", "client/vRP")
+vRP = cvRP()
+local pvRP = {}
+-- load script in vRP context
+pvRP.loadScript = module
+Proxy.addInterface("vRP", pvRP)
+local cfg = module("vrp_reactlib", "cfg/cfg")
 
-function Jax:__construct()
+local ReactLib = class("ReactLib", vRP.Extension)
+
+local focus = false
+local active = false
+
+function ReactLib:__construct()
   vRP.Extension.__construct(self)
-  print("ready...")
 
-  RegisterCommand("show-nui", function()
-    local user = self.remote.name(self)
-    print("user", table.unpack(user))
-    TriggerEvent("SendReactMessage", "setPlayerName", {playerName = "nil"})
+  Citizen.CreateThread(function()
+    while true do
+      Citizen.Wait(0)
+      if IsControlJustReleased(0, cfg.keys["~"]) then
+        if not active then
+          SetDisplay(not display)
+          active = true
+          self.remote._getInfo()
+        elseif active then
+          SetDisplay(false)
+          active = false
+        end
+      end
+
+      if IsControlJustReleased(0, cfg.keys["."]) and active then 	--- Mouse toggle
+        SetNuiFocus(true, true)		-- (hasFocus [[true/false]], hasCursor [[true/false]])
+      end
+    end
   end)
 end
 
-vRP:registerExtension(Jax)
+-- toggle off ui
+RegisterNUICallback("exit", function(data)
+  SetNuiFocus(false, false)
+  SetDisplay(false)
+  active = false
+end)
+
+-- toggle ui
+function SetDisplay(bool)
+  display = bool
+  SendNUIMessage({
+    action = "setVisible",
+    data = bool,
+  })
+end
+vRP:registerExtension(ReactLib)
