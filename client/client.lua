@@ -20,7 +20,7 @@ function ReactLib:__construct()
 
   if not lib.checkDependency('vrp_reactlib', cfg.currentversion) then error() end
 
-
+  print('React lib open key is ' .. cfg.open)
   local openui = lib.addKeybind({
     name = 'openui',
     description = 'Opens the UI',
@@ -36,8 +36,8 @@ function ReactLib:__construct()
       SetNuiFocus(true, true)		-- (hasFocus [[true/false]], hasCursor [[true/false]])
     end
   })
-
   openui:disable(false) -- enables the keybind
+
   -- Citizen.CreateThread(function()
   --   while true do
   --     Citizen.Wait(0)
