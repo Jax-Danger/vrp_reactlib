@@ -68,7 +68,7 @@ const App: React.FC = () => {
 				{/* Close UI Button */}
 				<button
 					className="select-none absolute bottom-3 left-[43.99%] bg-blue-500 text-white px-10 p-2 rounded-md"
-					onClick={() => fetchNui("hideFrame")}
+					onClick={() => fetchNui("exit")}
 				>
 					Close
 				</button>

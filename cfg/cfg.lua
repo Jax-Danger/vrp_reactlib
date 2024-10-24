@@ -1,5 +1,5 @@
 local cfg = {}
 
-cfg.keys = { ["~"] = 243 }
+cfg.open = 'F2'
 
 return cfg

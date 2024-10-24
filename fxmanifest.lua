@@ -7,6 +7,10 @@ ui_page "cfg/html/index.html"
 
 dependency "vrp"
 
+shared_scripts {
+  '@ox_lib/init.lua',
+}
+
 server_script {
   "@vrp/lib/utils.lua",
   "server/vrp_s.lua"
