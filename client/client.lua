@@ -1,77 +1,38 @@
---##########	VRP Main	##########--
--- init vRP server context
-Tunnel = module("vrp", "lib/Tunnel")
-Proxy = module("vrp", "lib/Proxy")
-local cvRP = module("vrp", "client/vRP")
-vRP = cvRP()
-local pvRP = {}
--- load script in vRP context
-pvRP.loadScript = module
-Proxy.addInterface("vRP", pvRP)
-local cfg = module("vrp_reactlib", "cfg/cfg")
+local InvUI = class("InvUI", vRP.Extension)
+InvUI.event = {}
+InvUI.tunnel = {}
 
-local ReactLib = class("ReactLib", vRP.Extension)
-
-local focus = false
-local active = false
-
-function ReactLib:__construct()
+function InvUI:__construct()
   vRP.Extension.__construct(self)
-
-  if not lib.checkDependency('vrp_reactlib', cfg.currentversion) then error() end
-
-  print('React lib open key is ' .. cfg.open)
-  local openui = lib.addKeybind({
-    name = 'openui',
-    description = 'Opens the UI',
-    defaultKey = cfg.open,
-    onPressed = function(self)
-      if not active then
-        SetDisplay(not display)
-        active = true
-      elseif active then
-        SetDisplay(false)
-        active = false
-      end
-      SetNuiFocus(true, true)		-- (hasFocus [[true/false]], hasCursor [[true/false]])
-    end
-  })
-  openui:disable(false) -- enables the keybind
-
-  -- Citizen.CreateThread(function()
-  --   while true do
-  --     Citizen.Wait(0)
-  --     if IsControlJustReleased(0, cfg.keys["~"]) then
-  --       if not active then
-  --         SetDisplay(not display)
-  --         active = true
-  --         self.remote._getInfo()
-  --       elseif active then
-  --         SetDisplay(false)
-  --         active = false
-  --       end
-  --     end
-
-  --     if IsControlJustReleased(0, cfg.keys["."]) and active then 	--- Mouse toggle
-  --       SetNuiFocus(true, true)		-- (hasFocus [[true/false]], hasCursor [[true/false]])
-  --     end
-  --   end
-  -- end)
+  self.cfg = module("vrp_inventory", "cfg/cfg")
 end
 
--- toggle off ui
-RegisterNUICallback("exit", function(data)
-  SetNuiFocus(false, false)
-  SetDisplay(false)
-  active = false
+RegisterNUICallback("getServerInfo", function(_, cb)
+  local pvp = "disabled"
+  if self.cfg.EnablePvP then pvp = "enabled" end
+  local isPvp = pvp
+  print("Sending server info to UI")
+  cb({
+    serverName = self.cfg.ServerName,
+    StartingMoney = self.cfg.StartingMoney,
+    EnablePvP = isPvp
+  })
 end)
 
--- toggle ui
-function SetDisplay(bool)
-  display = bool
-  SendNUIMessage({
-    action = "setVisible",
-    data = bool,
-  })
+function SendReactMessage(action, data)
+  SendNUIMessage({action = action, data = data})
 end
-vRP:registerExtension(ReactLib)
+
+function toggleNuiFrame(shouldShow)
+  SetNuiFocus(shouldShow, shouldShow)
+  SendReactMessage("setVisible", shouldShow)
+end
+
+RegisterNUICallback("hideFrame", function(_, cb)
+  toggleNuiFrame(false)
+  print("Hide NUI frame")
+  cb({})
+end)
+
+
+vRP:registerExtension(InvUI)

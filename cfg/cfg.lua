@@ -1,7 +1,10 @@
-local cfg = {}
+-- config.lua
+cfg = {}
 
-cfg.currentversion = '1.0.0' -- change this to match github tag.
+cfg.debug = true -- Enable debug mode. This prints debug messages to the client/server console if true.
 
-cfg.open = 'F2'
-
-return cfg
+-- Example cfguration variables
+cfg.ServerName = "My FiveM Server"
+cfg.MaxPlayers = 32
+cfg.StartingMoney = 1000
+cfg.EnablePvP = true

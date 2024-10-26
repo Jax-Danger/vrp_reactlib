@@ -1,8 +1,16 @@
-# vrp_reactlib
- This is a vrp2 template with reactjs for the UI.
+# Info.
+This is a new vrp inventory meant for the 2 major version of vrp(vRP2). The inventory is to simply give the default vrp inventory a UI, so it depends on how your vrp server is setup in order to use the items and such.
 
-# usage
-open script in vscode, and open the terminal. Type the following: `cd web` then type `yarn`. After typing yarn you should see it loading and istalling packages and dependencies. Once it's done, type: `yarn start` for previewing the UI in your browser, or type: `yarn start:game` to have the UI auto build for you when you save a file, so all you need to do is restart the script to see UI changes.
 
-# Disclaimer
-Please note that this is meant for the vRP2 framework, not standalone. Please don't change anything in the fxmanifest.lua file, as it'll most likely break the script. 
+# Dependencies
+* vRP2 by imagicthecat
+* vrp_oxmysql + oxmysql
+* vRP2 server
+
+# Installation
+* Download into resources folder
+* Don't rename the folder.
+
+# Configuration
+NOTE: Configuring the inventory depends on how you have configured the default vrp inventory. 
+Modify any of the cfg/*.lua files related to inventory, such as shops.lua, inventory.lua etc. to modify the inventory to your liking.
