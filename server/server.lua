@@ -1,11 +1,17 @@
-local InvUI = class("InvUI", vRP.Extension)
-InvUI.event = {}
-InvUI.tunnel = {}
+local lang = vRP.lang
+local Luang = module("vrp", "lib/Luang")
 
-function InvUI:__construct()
+local ReactLib = class("ReactLib", vRP.Extension)
+ReactLib.event = {}
+ReactLib.tunnel = {}
+
+if not lib.checkDependency('vrp_reactlib', 'v1.0.0') then error() end
+
+function ReactLib:__construct()
   vRP.Extension.__construct(self)
-  self.cfg = module("vrp_inventory", "cfg/cfg")
 
-  print('^6Initializing InvUI^0')
+  -- load config
+  self.cfg = module("vrp_reactlib", "cfg/cfg")
 end
-vRP:registerExtension(InvUI)
+
+vRP:registerExtension(ReactLib)
