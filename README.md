@@ -1,8 +1,15 @@
-# vrp_reactlib
- This is a vrp2 template with reactjs for the UI.
+# Info.
+This is a paid script for the vRP2 framework. This is a radial menu that aims to replace the vRP gui.
 
-# usage
-open script in vscode, and open the terminal. Type the following: `cd web` then type `yarn`. After typing yarn you should see it loading and istalling packages and dependencies. Once it's done, type: `yarn start` for previewing the UI in your browser, or type: `yarn start:game` to have the UI auto build for you when you save a file, so all you need to do is restart the script to see UI changes.
+# To Do List:
+* Ambulance options
+* Better config file
+* Emotes
+* Vehicle options
+* Identity
 
-# Disclaimer
-Please note that this is meant for the vRP2 framework, not standalone. Please don't change anything in the fxmanifest.lua file, as it'll most likely break the script. 
+# Installation
+* setup a vrp2 server
+* add vrp_radialmenu to resouces and server.cfg
+* also add ox_lib in resources and server cfg but start it first!
+* restart server

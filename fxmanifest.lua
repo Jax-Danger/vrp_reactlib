@@ -25,5 +25,5 @@ files {
   "cfg/cfg.lua",
   'cfg/html/index.html',
   'cfg/html/assets/*.js',
-  'cfg/html/assets/*.css'
+  'cfg/html/assets/*.css',
 }
