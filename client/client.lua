@@ -1,16 +1,16 @@
---##########	VRP Main	##########--
--- init vRP server context
-Tunnel = module("vrp", "lib/Tunnel")
-Proxy = module("vrp", "lib/Proxy")
-local cvRP = module("vrp", "client/vRP")
-vRP = cvRP()
-local pvRP = {}
--- load script in vRP context
-pvRP.loadScript = module
-Proxy.addInterface("vRP", pvRP)
-local cfg = module("vrp_reactlib", "cfg/cfg")
-
+-- --##########	VRP Main	##########--
+-- -- init vRP server context
+-- Tunnel = module("vrp", "lib/Tunnel")
+-- Proxy = module("vrp", "lib/Proxy")
+-- local cvRP = module("vrp", "client/vRP")
+-- vRP = cvRP()
+-- local pvRP = {}
+-- -- load script in vRP context
+-- pvRP.loadScript = module
+-- Proxy.addInterface("vRP", pvRP)
+-- I don't know if above is needed :/
 local ReactLib = class("ReactLib", vRP.Extension)
+local cfg = module("vrp_reactlib", "cfg/cfg")
 
 local focus = false
 local active = false
@@ -35,25 +35,7 @@ function ReactLib:__construct()
   })
 
   openui:disable(false) -- enables the keybind
-  -- Citizen.CreateThread(function()
-  --   while true do
-  --     Citizen.Wait(0)
-  --     if IsControlJustReleased(0, cfg.keys["~"]) then
-  --       if not active then
-  --         SetDisplay(not display)
-  --         active = true
-  --         self.remote._getInfo()
-  --       elseif active then
-  --         SetDisplay(false)
-  --         active = false
-  --       end
-  --     end
 
-  --     if IsControlJustReleased(0, cfg.keys["."]) and active then 	--- Mouse toggle
-  --       SetNuiFocus(true, true)		-- (hasFocus [[true/false]], hasCursor [[true/false]])
-  --     end
-  --   end
-  -- end)
 end
 
 -- toggle off ui
