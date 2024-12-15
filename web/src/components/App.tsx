@@ -1,16 +1,26 @@
 // App.tsx
 import { useEffect, useState } from "react";
-import { fetchNui, useNuiEvent } from "../utils/utils";
+import { fetchNui } from "../utils/utils";
 import {
-	Router, Routes, Route, useNavigate, useLocation, HomePage,
-} from "./imports";
+	Router,
+	Routes,
+	Route,
+	useNavigate,
+	useLocation,
+	HomePage,
+	Images,
+} from "./imports"; /* These are just a bunch of imports that are used in the app.
+Found in the imports.ts file.*/
 
+// This is a component that will be used to navigate between the pages.
 const NavigationButtons: React.FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
 	const [initialNavigationDone, setInitialNavigationDone] = useState(false);
 
+	/* This function changes the button's background color based on the current path.
+	This is used to indicate what page the user is viewing.*/
 	const getButtonClass = (path: string) => {
 		return location.pathname === path
 			? "bg-blue-700 text-white p-2 rounded-lg"
@@ -45,20 +55,15 @@ const NavigationButtons: React.FC = () => {
 	);
 };
 
+// This is the main component that will be rendered.
 const App: React.FC = () => {
-	const navigate = useNavigate();
-
-	useNuiEvent('purchaseVehicle', (data: any) => {
-		console.log('purchaseVehicle')
-		navigate('/')
-	})
-
 	return (
 		<Router>
 			<div className="absolute left-[26%] top-[23%] w-[52%] h-[52%] bg-gray-500 border-[2px] border-black">
 				<NavigationButtons />
 				<Routes>
 					<Route path="/" element={<HomePage />} />
+					<Route path="/images" element={<Images />} />
 				</Routes>
 				{/* Close UI Button */}
 				<button
